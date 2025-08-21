@@ -1,4 +1,4 @@
-package ch01.apps.exercises;
+package ch01.exercises;
 
 import java.util.Random;
 
