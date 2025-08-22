@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class GoShopping {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        ShoppingBag bag = new ShoppingBag(0.07); // 7% tax rate
+        ShoppingBag bag = new ShoppingBag(0.06); // 6% tax rate
 
         while (true) {
             System.out.print("Enter count (use 0 to stop): ");
