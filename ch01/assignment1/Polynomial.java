@@ -17,6 +17,7 @@ public class Polynomial {
             throw new IllegalArgumentException("Term degree out of bounds");
         }
         // index 3 is set to value of 5... coefficients = [_,_,_, 5]
+        // index position represents the degree of the term
         this.coefficients[termDegree] = coefficient;
 
     }
