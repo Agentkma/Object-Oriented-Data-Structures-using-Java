@@ -6,7 +6,7 @@ public class ShoppingBag {
     private final double taxRate;
 
     public ShoppingBag(double taxRate) {
-        validateNonNegative(taxRate, "Tax rate cannot be negative");
+        validateNumberIsPositive(taxRate, "Tax rate cannot be negative");
         this.taxRate = taxRate;
         this.itemCount = 0;
         this.totalRetailCost = 0.0;
@@ -14,13 +14,13 @@ public class ShoppingBag {
 
     // Place a number of identically priced items into the bag
     public void place(int count, double pricePerItem) {
-        validateNonNegative(count, "Item count cannot be negative");
-        validateNonNegative(pricePerItem, "Price per item cannot be negative");
+        validateNumberIsPositive(count, "Item count cannot be negative");
+        validateNumberIsPositive(pricePerItem, "Price per item cannot be negative");
         this.itemCount += count;
         this.totalRetailCost += count * pricePerItem;
     }
 
-    private static void validateNonNegative(Number value, String errorMessage) {
+    private static void validateNumberIsPositive(Number value, String errorMessage) {
         if (value.doubleValue() < 0) {
             throw new IllegalArgumentException(errorMessage);
         }
