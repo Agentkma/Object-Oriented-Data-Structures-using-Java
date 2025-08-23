@@ -3,12 +3,12 @@ package ch01.assignment1;
 public class ShoppingBagTest {
     public static void main(String[] args) {
         int passedTests = 0;
-        int totalTests = 6;
+        int totalTests = 5;
 
         // Test 1: Constructor with valid tax rate
         try {
             ShoppingBag bag = new ShoppingBag(0.07);
-            if (bag.getTaxRate() != 0.07 || bag.getItemCount() != 0 || bag.getTotalRetailCost() != 0.0) {
+            if (bag.totalCost() != 0.0) { // Initially, total cost should be 0
                 System.out.println("Test 1 failed");
                 return;
             }
@@ -34,7 +34,7 @@ public class ShoppingBagTest {
         try {
             ShoppingBag bag = new ShoppingBag(0.07);
             bag.place(3, 10.0);
-            if (bag.getItemCount() != 3 || bag.getTotalRetailCost() != 30.0) {
+            if (bag.totalCost() != 30.0 * (1 + 0.07)) { // Total cost with tax
                 System.out.println("Test 3 failed");
                 return;
             }
@@ -57,12 +57,12 @@ public class ShoppingBagTest {
             System.out.println("Test 4 failed with unexpected exception: " + e.getMessage());
         }
 
-        // Test 5: Calculating total cost with tax
+        // Test 5: toString method
         try {
-            ShoppingBag bag = new ShoppingBag(0.07); // 7% tax rate
+            ShoppingBag bag = new ShoppingBag(0.07);
             bag.place(2, 15.0); // Add 2 items, each costing $15.00
-            double expectedTotalCost = 2 * 15.0 * (1 + 0.07); // Total cost with tax
-            if (Math.abs(bag.getTotalCost() - expectedTotalCost) > 0.0001) {
+            String expectedOutput = "The bag contains 2 items.  The retail cost of the items is  $30.00.  The total cost of the items, including tax is  $32.10.";
+            if (!bag.toString().equals(expectedOutput)) {
                 System.out.println("Test 5 failed");
                 return;
             }
@@ -70,21 +70,6 @@ public class ShoppingBagTest {
             passedTests++;
         } catch (Exception e) {
             System.out.println("Test 5 failed with exception: " + e.getMessage());
-        }
-
-        // Test 6: toString method
-        try {
-            ShoppingBag bag = new ShoppingBag(0.07);
-            bag.place(2, 15.0); // Add 2 items, each costing $15.00
-            String expectedOutput = "The bag contains 2 items.  The retail cost of the items is  $30.00.  The total cost of the items, including tax is  $32.10.";
-            if (!bag.toString().equals(expectedOutput)) {
-                System.out.println("Test 6 failed");
-                return;
-            }
-            System.out.println("Test 6 passed");
-            passedTests++;
-        } catch (Exception e) {
-            System.out.println("Test 6 failed with exception: " + e.getMessage());
         }
 
         // Summary

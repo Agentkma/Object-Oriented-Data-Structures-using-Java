@@ -12,7 +12,6 @@ public class ShoppingBag {
         this.totalRetailCost = 0.0;
     }
 
-    // Place a number of identically priced items into the bag
     public void place(int count, double pricePerItem) {
         validateNumberIsPositive(count, "Item count cannot be negative");
         validateNumberIsPositive(pricePerItem, "Price per item cannot be negative");
@@ -26,19 +25,7 @@ public class ShoppingBag {
         }
     }
 
-    public int getItemCount() {
-        return itemCount;
-    }
-
-    public double getTotalRetailCost() {
-        return totalRetailCost;
-    }
-
-    public double getTaxRate() {
-        return taxRate;
-    }
-
-    public double getTotalCost() {
+    public double totalCost() {
         return totalRetailCost * (1.0 + taxRate);
     }
 
@@ -46,6 +33,6 @@ public class ShoppingBag {
     public String toString() {
         return String.format(
                 "The bag contains %d items.  The retail cost of the items is  $%.2f.  The total cost of the items, including tax is  $%.2f.",
-                itemCount, totalRetailCost, getTotalCost());
+                itemCount, totalRetailCost, totalCost());
     }
 }
