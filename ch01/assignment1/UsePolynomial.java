@@ -31,6 +31,12 @@ public class UsePolynomial {
             // Reverse the order so coefficients are in ascending order
             // this aligns the coefficient with its term degree as we expect
             // to set them
+            // could use a reverseIndex instead of reversing the list,
+            // but I like this way better for readability and
+            // copying the list takes more memory and may be slower
+            // but both have Big O complexity of O(n) , so keeping like this
+            // especially for small lists
+
             Collections.reverse(Arrays.asList(coefficients));
 
             polynomial = new Polynomial(highestDegree);
