@@ -1,5 +1,7 @@
 package ch01.assignment1;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -23,28 +25,17 @@ public class UsePolynomial {
 
         Polynomial polynomial = null;
         try {
-            int degree = Integer.parseInt(args[0]);
-            if (args.length != degree + 2) {
-                System.out
-                        .println("Error: Number of coefficients provided does not match the degree of the polynomial.");
-                scanner.close();
-                return;
-            }
 
-            polynomial = new Polynomial(degree);
-            for (int termDegree = 0; termDegree <= degree; termDegree++) {
-                // Map the descending input coefficients to ascending order in the coefficients
-                // array.
-                // The Polynomial class uses an array where the index represents the degree of
-                // the term.
-                // For example, a degree of 3 corresponds to index 3 in the array.
-                // Since user input provides coefficients in descending order, we calculate the
-                // correct index
-                // by subtracting the current term degree from the polynomial degree and adding
-                // 1 to offset the initial degree arg.
-                int indexForTermDegree = degree - termDegree + 1;
-                int coefficient = Integer.parseInt(args[indexForTermDegree]);
+            int highestDegree = Integer.parseInt(args[0]);
+            String[] coefficients = Arrays.copyOfRange(args, 1, args.length);
+            // Reverse the order so coefficients are in ascending order
+            // this aligns the coefficient with its term degree as we expect
+            // to set them
+            Collections.reverse(Arrays.asList(coefficients));
 
+            polynomial = new Polynomial(highestDegree);
+            for (int termDegree = 0; termDegree <= highestDegree; termDegree++) {
+                int coefficient = Integer.parseInt(coefficients[termDegree]);
                 polynomial.setCoefficient(termDegree, coefficient);
             }
 
