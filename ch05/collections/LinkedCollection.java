@@ -181,7 +181,7 @@ public class LinkedCollection<T> implements CollectionInterface<T> {
           previous.setLink(current.getLink());
 
         }
-
+        numElements--;
       }
       // set our pointer variables for next iteration
       // set previous to current for next iteration
@@ -195,5 +195,7 @@ public class LinkedCollection<T> implements CollectionInterface<T> {
       current = current.getLink();
 
     }
+
   }
+
 }

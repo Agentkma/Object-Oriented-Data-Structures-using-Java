@@ -53,15 +53,26 @@ public class LinkedCollectionTest {
             collection.add("A");
             collection.add("C");
             collection.add("A");
+
+            // Verify size before removeAll
+            int sizeBefore = collection.size();
+            System.out.println("Size before removeAll: " + sizeBefore);
+
             collection.removeAll("A");
+
+            // Verify size after removeAll
+            int sizeAfter = collection.size();
+            System.out.println("Size after removeAll: " + sizeAfter);
+
             String result = collection.toString();
             System.out.println("Expected: C, B");
             System.out.println("Actual: " + result);
-            if (result.equals("C, B")) {
+
+            if (result.equals("C, B") && sizeBefore == 5 && sizeAfter == 2) {
                 System.out.println("Test 3 passed");
                 passedTests++;
             } else {
-                System.out.println("Test 3 failed: Incorrect removeAll output");
+                System.out.println("Test 3 failed: Incorrect removeAll output or size verification");
             }
         } catch (Exception e) {
             System.out.println("Test 3 failed: " + e.getMessage());
