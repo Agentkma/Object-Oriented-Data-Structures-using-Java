@@ -13,42 +13,47 @@ package ch06.lists;
 
 import java.util.Iterator;
 
-public class ABList<T> implements ListInterface<T>  
-{
+public class ABList<T> implements ListInterface<T> {
   protected final int DEFCAP = 100; // default capacity
-  protected int origCap;            // original capacity
-  protected T[] elements;           // array to hold this list’s elements
-  protected int numElements = 0;    // number of elements in this list
+  protected int origCap; // original capacity
+  protected T[] elements; // array to hold this listï¿½s elements
+  protected int numElements = 0; // number of elements in this list
 
   // set by find method
-  protected boolean found;  // true if target found, otherwise false
-  protected int location;   // indicates location of target if found
+  protected boolean found; // true if target found, otherwise false
+  protected int location; // indicates location of target if found
 
-  public ABList() 
-  {
+  public ABList() {
     elements = (T[]) new Object[DEFCAP];
     origCap = DEFCAP;
   }
 
-  public ABList(int origCap) 
-  {
+  public ABList(int origCap) {
     elements = (T[]) new Object[origCap];
     this.origCap = origCap;
   }
 
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    for (int i = 0; i < numElements; i++) {
+      sb.append(elements[i].toString()).append("\n");
+    }
+    return sb.toString();
+  }
+
   protected void enlarge()
-  // Increments the capacity of the list by an amount 
+  // Increments the capacity of the list by an amount
   // equal to the original capacity.
   {
     // Create the larger array.
     T[] larger = (T[]) new Object[elements.length + origCap];
-    
+
     // Copy the contents from the smaller array into the larger array.
-    for (int i = 0; i < numElements; i++)
-    {
+    for (int i = 0; i < numElements; i++) {
       larger[i] = elements[i];
     }
-    
+
     // Reassign elements reference.
     elements = larger;
   }
@@ -62,14 +67,11 @@ public class ABList<T> implements ListInterface<T>
     location = 0;
     found = false;
 
-    while (location < numElements) 
-    {
-      if (elements[location].equals(target))
-      {  
+    while (location < numElements) {
+      if (elements[location].equals(target)) {
         found = true;
         return;
-      }
-      else
+      } else
         location++;
     }
   }
@@ -84,29 +86,28 @@ public class ABList<T> implements ListInterface<T>
     return true;
   }
 
-  public boolean remove (T target)
+  public boolean remove(T target)
   // Removes an element e from this list such that e.equals(target)
   // and returns true; if no such element exists, returns false.
   {
-    find(target);    
-    if (found)
-    {
+    find(target);
+    if (found) {
       for (int i = location; i <= numElements - 2; i++)
-        elements[i] = elements[i+1];
+        elements[i] = elements[i + 1];
       elements[numElements - 1] = null;
-      numElements--;  
+      numElements--;
     }
     return found;
   }
-  
+
   public int size()
-  // Returns the number of elements on this list. 
+  // Returns the number of elements on this list.
   {
     return numElements;
   }
 
-  public boolean contains (T target)
-  // Returns true if this list contains an element e such that 
+  public boolean contains(T target)
+  // Returns true if this list contains an element e such that
   // e.equals(target); otherwise, returns false.
   {
     find(target);
@@ -117,7 +118,7 @@ public class ABList<T> implements ListInterface<T>
   // Returns an element e from this list such that e.equals(target);
   // if no such element exists, returns null.
   {
-    find(target);    
+    find(target);
     if (found)
       return elements[location];
     else
@@ -127,7 +128,7 @@ public class ABList<T> implements ListInterface<T>
   public boolean isEmpty()
   // Returns true if this list is empty; otherwise, returns false.
   {
-    return (numElements == 0);  
+    return (numElements == 0);
   }
 
   public boolean isFull()
@@ -139,23 +140,23 @@ public class ABList<T> implements ListInterface<T>
   public void add(int index, T element)
   // Throws IndexOutOfBoundsException if passed an index argument
   // such that index < 0 or index > size().
-  // Otherwise, adds element to this list at position index; all current 
+  // Otherwise, adds element to this list at position index; all current
   // elements at that index or higher have 1 added to their index.
   {
     if ((index < 0) || (index > size()))
-      throw new IndexOutOfBoundsException("Illegal index of " + index + 
-                             " passed to ABList add method.\n");
-                                    
+      throw new IndexOutOfBoundsException("Illegal index of " + index +
+          " passed to ABList add method.\n");
+
     if (numElements == elements.length)
       enlarge();
-    
+
     for (int i = numElements; i > index; i--)
       elements[i] = elements[i - 1];
 
     elements[index] = element;
     numElements++;
   }
-  
+
   public T set(int index, T newElement)
   // Throws IndexOutOfBoundsException if passed an index argument
   // such that index < 0 or index >= size().
@@ -163,38 +164,38 @@ public class ABList<T> implements ListInterface<T>
   // newElement and returns the replaced element.
   {
     if ((index < 0) || (index >= size()))
-      throw new IndexOutOfBoundsException("Illegal index of " + index + 
-                             " passed to ABList set method.\n");
- 
+      throw new IndexOutOfBoundsException("Illegal index of " + index +
+          " passed to ABList set method.\n");
+
     T hold = elements[index];
     elements[index] = newElement;
     return hold;
   }
-    
+
   public T get(int index)
   // Throws IndexOutOfBoundsException if passed an index argument
   // such that index < 0 or index >= size().
   // Otherwise, returns the element on this list at position index.
   {
     if ((index < 0) || (index >= size()))
-      throw new IndexOutOfBoundsException("Illegal index of " + index + 
-                             " passed to ABList get method.\n");
- 
+      throw new IndexOutOfBoundsException("Illegal index of " + index +
+          " passed to ABList get method.\n");
+
     return elements[index];
-  }  
+  }
 
   public int indexOf(T target)
-  // If this list contains an element e such that e.equals(target), 
+  // If this list contains an element e such that e.equals(target),
   // then returns the index of the first such element.
   // Otherwise, returns -1.
   {
     find(target);
     if (found)
       return location;
-    else  
+    else
       return -1;
   }
-  
+
   public T remove(int index)
   // Throws IndexOutOfBoundsException if passed an index argument
   // such that index < 0 or index >= size().
@@ -203,13 +204,13 @@ public class ABList<T> implements ListInterface<T>
   // higher than that index have 1 subtracted from their position.
   {
     if ((index < 0) || (index >= size()))
-      throw new IndexOutOfBoundsException("Illegal index of " + index + 
-                             " passed to ABList remove method.\n");
+      throw new IndexOutOfBoundsException("Illegal index of " + index +
+          " passed to ABList remove method.\n");
 
     T hold = elements[index];
-    for (int i = index; i < numElements-1; i++)
+    for (int i = index; i < numElements - 1; i++)
       elements[i] = elements[i + 1];
-    elements[numElements-1] = null;
+    elements[numElements - 1] = null;
     numElements--;
     return hold;
   }
@@ -217,23 +218,22 @@ public class ABList<T> implements ListInterface<T>
   public Iterator<T> iterator()
   // Returns an Iterator over this list.
   {
-    return new Iterator<T>()
-    {
+    return new Iterator<T>() {
       private int previousPos = -1;
 
       public boolean hasNext()
       // Returns true if the iteration has more elements; otherwise returns false.
       {
-        return (previousPos < (size() - 1)) ;
+        return (previousPos < (size() - 1));
       }
-      
+
       public T next()
       // Returns the next element in the iteration.
       // Throws NoSuchElementException - if the iteration has no more elements
-      { 
+      {
         if (!hasNext())
-          throw new IndexOutOfBoundsException("Illegal invocation of next " + 
-                             " in ABList iterator.\n");
+          throw new IndexOutOfBoundsException("Illegal invocation of next " +
+              " in ABList iterator.\n");
         previousPos++;
         return elements[previousPos];
       }
@@ -242,14 +242,14 @@ public class ABList<T> implements ListInterface<T>
       // Removes from the underlying representation the last element returned
       // by this iterator. This method should be called only once per call to
       // next(). The behavior of an iterator is unspecified if the underlying
-      // representation is modified while the iteration is in progress in any 
+      // representation is modified while the iteration is in progress in any
       // way other than by calling this method.
       {
         for (int i = previousPos; i <= numElements - 2; i++)
-          elements[i] = elements[i+1];
+          elements[i] = elements[i + 1];
         elements[numElements - 1] = null;
         numElements--;
-        previousPos--;  
+        previousPos--;
       }
     };
   }
