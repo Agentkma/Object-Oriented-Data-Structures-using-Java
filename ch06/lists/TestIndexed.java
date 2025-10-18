@@ -30,9 +30,13 @@ public class TestIndexed {
             ABList<String> list = new ABList<String>();
 
             list.add(0, "John");
+            String listContents = list.toString();
+            if (!"John".equals(listContents.trim())) {
+                throw new Exception("Unable to add");
+            }
 
             String removedJohn = list.remove(0);
-            String listContents = list.toString();
+            listContents = list.toString();
 
             if (!"John".equals(removedJohn.trim()) || "John".equals(listContents.trim())) {
                 throw new Exception("Unable to remove John for removal test");
@@ -50,6 +54,10 @@ public class TestIndexed {
             ABList<String> list = new ABList<String>();
 
             list.add(0, "John");
+            String listContents = list.toString();
+            if (!"John".equals(listContents.trim())) {
+                throw new Exception("Unable to add");
+            }
 
             String getTarget = list.get(0);
 
