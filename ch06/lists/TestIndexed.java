@@ -5,7 +5,7 @@ import ch06.lists.ABList;
 public class TestIndexed {
     public static void main(String[] args) {
         int passedTests = 0;
-        int totalTests = 3;
+        int totalTests = 4;
 
         System.out.println("Running Test 1: Add method");
         try {
@@ -70,6 +70,33 @@ public class TestIndexed {
 
         } catch (Exception e) {
             System.out.println("Test 3 failed: " + e.getMessage());
+        }
+
+        System.out.println("Running Test 4: Set method");
+        try {
+            ABList<String> list = new ABList<String>();
+
+            list.add(0, "John");
+            String listContents = list.toString();
+            if (!"John".equals(listContents.trim())) {
+                throw new Exception("Unable to add");
+            }
+
+            String replacedTarget = list.set(0, "Patty");
+
+            if (!"John".equals(replacedTarget.trim())) {
+                throw new Exception("target not equal to John for set test");
+            }
+            listContents = list.toString();
+            if (!"Patty".equals(listContents.trim())) {
+                throw new Exception("listContents not equal to Patty for set test");
+            }
+
+            System.out.println("Test 4 passed");
+            passedTests++;
+
+        } catch (Exception e) {
+            System.out.println("Test 4 failed: " + e.getMessage());
         }
 
         System.out.println(passedTests + " out of " + totalTests + " tests passed");
