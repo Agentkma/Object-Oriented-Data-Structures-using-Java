@@ -4,5 +4,8 @@
     ],
     "[java]": {
         "editor.defaultFormatter": "redhat.java"
-    }
+    },
+    "java.project.sourcePaths": [
+        "."
+    ]
 }
